@@ -1,19 +1,19 @@
 web:
     image: 'ulm0/gitlab:13.1.0'
     restart: always
-    hostname: 192.168.10.2
+    hostname: ${IP_ADDRESS}
     environment:
         GITLAB_OMNIBUS_CONFIG: |
-            external_url 'https://192.168.10.2:9090'
+            external_url "https://${IP_ADDRESS}:9090"
             gitlab_rails['gitlab_shell_ssh_port'] = 2224
             nginx['redirect_http_to_https'] = true
-            registry_external_url 'https://192.168.10.2:9000'
+            registry_external_url "https://${IP_ADDRESS}:9000"
             registry_nginx['redirect_http_to_https'] = true
     ports:
         - '9090:9090'
         - '9000:9000'
         - '2224:22'
     volumes:
-        - '/mnt/nfs/gitlab/config:/etc/gitlab'
-        - '/mnt/nfs/gitlab/logs:/var/log/gitlab'
-        - '/mnt/nfs/gitlab/data:/var/opt/gitlab'
+        - "${GITLAB_CONFIG}:/etc/gitlab"
+        - "${GITLAB_LOGS}:/var/log/gitlab"
+        - "${GITLAB_DATA}:/var/opt/gitlab"
