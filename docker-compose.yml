@@ -1,19 +1,26 @@
-web:
-    image: 'ulm0/gitlab:13.1.0'
-    restart: always
-    hostname: ${IP_ADDRESS}
-    environment:
-        GITLAB_OMNIBUS_CONFIG: |
-            external_url "https://${IP_ADDRESS}:9090"
-            gitlab_rails['gitlab_shell_ssh_port'] = 2224
-            nginx['redirect_http_to_https'] = true
-            registry_external_url "https://${IP_ADDRESS}:9000"
-            registry_nginx['redirect_http_to_https'] = true
-    ports:
-        - '9090:9090'
-        - '9000:9000'
-        - '2224:22'
-    volumes:
-        - "${GITLAB_CONFIG}:/etc/gitlab"
-        - "${GITLAB_LOGS}:/var/log/gitlab"
-        - "${GITLAB_DATA}:/var/opt/gitlab"
+version: "3"
+services:
+    web:
+       image: 'ulm0/gitlab'
+       restart: always
+       hostname: ${IP_ADDRESS}
+       environment:
+           GITLAB_OMNIBUS_CONFIG: |
+               external_url "https://${IP_ADDRESS}:9090"
+               gitlab_rails['gitlab_shell_ssh_port'] = 2224
+               nginx['redirect_http_to_https'] = true
+               registry_external_url "https://${IP_ADDRESS}:9000"
+               registry_nginx['redirect_http_to_https'] = true
+       ports:
+           - '9090:9090'
+           - '9000:9000'
+           - '2224:22'
+       volumes:
+           - "${GITLAB_CONFIG}:/etc/gitlab"
+           - "${GITLAB_LOGS}:/var/log/gitlab"
+           - "${GITLAB_DATA}:/var/opt/gitlab"
+       logging:
+           driver: "json-file" # defaults if not specified
+           options:
+               max-size: "10m"
+               max-file: "3"
