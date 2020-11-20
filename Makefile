@@ -20,6 +20,8 @@ run-x64:
 
 up: run
 
+up-x64: run-x64
+
 down:
 	docker-compose down
 
