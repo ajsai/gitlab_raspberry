@@ -3,7 +3,6 @@ export
 pwd=$(shell pwd)
 
 run:
-	#docker container run --name $(NAME) -d -p 8888:80 -v $(pwd):/usr/share/nginx/html nginx:alpine
 	@if [ ! -e $(IP_ADDRESS).crt ]; then \
 		./generate_key.sh; \
 		sudo mkdir -p $(GITLAB_CONFIG)/ssl; \
@@ -11,8 +10,15 @@ run:
 	fi	
 	docker-compose up -d
 
+run-x64:
+	@if [ ! -e $(IP_ADDRESS).crt ]; then \
+		./generate_key.sh; \
+		sudo mkdir -p $(GITLAB_CONFIG)/ssl; \
+		sudo cp $(IP_ADDRESS).crt $(GITLAB_CONFIG)/ssl; \
+	fi	
+	docker-compose -f docker-compose-x64.yml up -d
+
 up: run
-	#docker container run --name $(NAME) -d -p 8888:80 -v $(pwd):/usr/share/nginx/html nginx:alpine
 
 down:
 	docker-compose down

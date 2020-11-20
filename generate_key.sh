@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # read from .env
-set -a; eval "$(cat ../.env <(echo) <(declare -x))"; set +a;
+set -a; eval "$(cat ./.env <(echo) <(declare -x))"; set +a;
 
 #IP_ADDRESS=192.168.10.2
 SERVER_NAME=$IP_ADDRESS
