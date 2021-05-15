@@ -7,6 +7,7 @@ run:
 		./generate_key.sh; \
 		sudo mkdir -p $(GITLAB_CONFIG)/ssl; \
 		sudo cp $(IP_ADDRESS).crt $(GITLAB_CONFIG)/ssl; \
+		sudo cp $(IP_ADDRESS).crt cert-server/contents/; \
 		sudo cp $(IP_ADDRESS).key $(GITLAB_CONFIG)/ssl; \
 	fi	
 	docker-compose up -d
@@ -16,6 +17,8 @@ run-x64:
 		./generate_key.sh; \
 		sudo mkdir -p $(GITLAB_CONFIG)/ssl; \
 		sudo cp $(IP_ADDRESS).crt $(GITLAB_CONFIG)/ssl; \
+		sudo cp $(IP_ADDRESS).crt cert-server/contents/; \
+		sudo cp $(IP_ADDRESS).key $(GITLAB_CONFIG)/ssl; \
 	fi	
 	docker-compose -f docker-compose-x64.yml up -d
 
