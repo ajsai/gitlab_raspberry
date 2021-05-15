@@ -4,6 +4,7 @@ services:
         image: 'ulm0/gitlab'
         restart: always
         hostname: ${IP_ADDRESS}
+        privileged: true
         environment:
             GITLAB_OMNIBUS_CONFIG: |
                 external_url "https://${IP_ADDRESS}:9090"
@@ -28,7 +29,7 @@ services:
         image: cert-server
         build: ./cert-server
         ports:
-            - '9080:9090'
+            - '9080:80'
         volumes:
-            - "./cert_server/contents/:/usr/share/nginx/html"
+            - "./cert-server/contents/:/usr/share/nginx/html"
         restart: always

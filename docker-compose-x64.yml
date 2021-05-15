@@ -28,7 +28,7 @@ services:
         image: cert-server
         build: ./cert-server
         ports:
-            - '9080:9090'
+            - '9080:80'
         volumes:
-            - "./cert_server/contents/:/usr/share/nginx/html"
+            - "./cert-server/contents/:/usr/share/nginx/html"
         restart: always
