@@ -21,10 +21,13 @@ services:
             - "${GITLAB_LOGS}:/var/log/gitlab"
             - "${GITLAB_DATA}:/var/opt/gitlab"
         logging:
-            driver: "json-file" # defaults if not specified
+            driver: "journald"
             options:
-                max-size: "10m"
-                max-file: "3"
+                tag: "{{.Name}}"
+#             driver: "json-file" # defaults if not specified
+#             options:
+#                 max-size: "10m"
+#                 max-file: "3"
     cert_server:
         image: cert-server
         build: ./cert-server
@@ -33,3 +36,7 @@ services:
         volumes:
             - "./cert-server/contents/:/usr/share/nginx/html"
         restart: always
+        logging:
+            driver: "journald"
+            options:
+                tag: "{{.Name}}"
