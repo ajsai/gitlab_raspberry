@@ -7,22 +7,22 @@ run:
 		./generate_key.sh; \
 		sudo mkdir -p $(GITLAB_CONFIG)/ssl; \
 		sudo cp $(IP_ADDRESS).crt $(GITLAB_CONFIG)/ssl; \
-		cp $(IP_ADDRESS).crt cert-server/contents/; \
+		sudo cp $(IP_ADDRESS).crt cert-server/contents/; \
 		sudo cp $(IP_ADDRESS).key $(GITLAB_CONFIG)/ssl; \
 	fi
 	mkdir -p logs
-	docker-compose up -d
+	docker compose up -d
 
 run-x64:
 	@if [ ! -e $(IP_ADDRESS).crt ]; then \
 		./generate_key.sh; \
 		sudo mkdir -p $(GITLAB_CONFIG)/ssl; \
 		sudo cp $(IP_ADDRESS).crt $(GITLAB_CONFIG)/ssl; \
-		cp $(IP_ADDRESS).crt cert-server/contents/; \
+		sudo cp $(IP_ADDRESS).crt cert-server/contents/; \
 		sudo cp $(IP_ADDRESS).key $(GITLAB_CONFIG)/ssl; \
 	fi	
 	mkdir -p logs
-	docker-compose -f docker-compose-x64.yml up -d
+	docker compose -f docker-compose-x64.yml up -d
 
 up: run
 
